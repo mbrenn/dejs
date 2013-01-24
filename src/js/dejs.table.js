@@ -1,3 +1,5 @@
+"use strict";
+
 define([],
     function () {
         var tableClass = function (domElement) {
@@ -40,6 +42,8 @@ define([],
                 addColumn: function (content, options) {
                     var currentColumn = this.__createColumn(options);
                     currentColumn.text(content);
+
+                    return currentColumn;
                 },
 
                 addColumnHtml: function (content, options) {
