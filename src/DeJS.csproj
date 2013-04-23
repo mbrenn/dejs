@@ -67,6 +67,7 @@
   <ItemGroup>
     <Content Include="web.config" />
     <Content Include="js\dejs.number.js" />
+    <Content Include="js\dejs.string.js" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
