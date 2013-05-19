@@ -2,11 +2,15 @@
 
 define([],
 	function () {
-		var methods = {
-			encodeHtml: function (text) {
-				return $("<div></div>").text(text).html();
-			}
-		};
+	    var methods = {
+	        encodeHtml: function (text) {
+	            return $("<div></div>").text(text).html();
+	        },
 
-		return methods;
+	        nl2br: function (text) {
+	            return text.replace(/\n/g, "<br />");
+	        }
+	    };
+
+	    return methods;
 	});
