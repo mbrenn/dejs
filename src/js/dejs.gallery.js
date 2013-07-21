@@ -29,7 +29,7 @@
             }
 
             if (galleryConfig.imageDom === undefined) {
-                galleryConfig.imageDom = $(".galleryimage", galleryData.galleryDom);
+                galleryConfig.imageDom = $(".galleryimage", galleryConfig.galleryDom);
             }
 
             if (galleryConfig.getImageUrl === undefined) {
@@ -64,32 +64,48 @@
 
             // Determines size of gallery out of window size
             this.imageSize =
-                this.galleryConfig.getImageSize(window.innerHeight, window.innerHeight);
+                this.galleryConfig.getImageSize(window.innerWidth, window.innerHeight);
             if (this.imageSize.x === undefined || this.imageSize.y === undefined) {
                 throw "this.imageSize.x or .y is not set by this.galleryConfig.getImageSize";
             }
 
             // Resets the full stuff
-            this.galleryConfig.imageDom.empty();
+            $(".dynamic", this.galleryConfig.imageDom).remove();
+
+            // Creates empty image element
+            var divImage = $("<div></div>");
+            divImage.attr('class', 'dynamic');
+            divImage.css('width', this.imageSize.x);
+            divImage.css('height', this.imageSize.y);
+            this.galleryConfig.imageDom.append(divImage);
 
             // Binds buttons
-            $(".prevbutton", this.galleryConfig.galleryDom).click(function () { tthis.gotoPreviousImage(); });
-            $(".nextbutton", this.galleryConfig.galleryDom).click(function () { tthis.gotoPreviousImage(); });
-            $(".closebutton", this.galleryConfig.galleryDom).click(function () { tthis.close(); });
-            $(".startslideshowbutton", this.galleryConfig.galleryDom).click(function () { tthis.startSlideshow(); });
-            $(".stopslideshowbutton", this.galleryConfig.galleryDom).click(function () { tthis.startSlideshow(); });
+            $(".prevbutton", this.galleryConfig.galleryDom).bind('click.gallery', function () { tthis.gotoPreviousImage(); });
+            $(".nextbutton", this.galleryConfig.galleryDom).bind('click.gallery', function () { tthis.gotoNextImage(); });
+            $(".closebutton", this.galleryConfig.galleryDom).bind('click.gallery', function () { tthis.close(); });
+            $(".startslideshowbutton", this.galleryConfig.galleryDom).bind('click.gallery', function () { tthis.startSlideshow(); });
+            $(".stopslideshowbutton", this.galleryConfig.galleryDom).bind('click.gallery', function () { tthis.startSlideshow(); });
 
             // Check, if imageId is given and found in images
             var position = this.__getPositionOfImage(imageId);
             if (position != -1) {
                 this.__moveToImage(position);
             }
+
+            this.galleryConfig.galleryDom.show();
         };
 
         resultClass.prototype.close = function () {
             this.stopSlideshow();
 
-            $(galleryConfig.galleryDom.hide());
+            $(".prevbutton", this.galleryConfig.galleryDom).unbind('click.gallery');
+            $(".nextbutton", this.galleryConfig.galleryDom).unbind('click.gallery');
+            $(".closebutton", this.galleryConfig.galleryDom).unbind('click.gallery');
+            $(".startslideshowbutton", this.galleryConfig.galleryDom).unbind('click.gallery');
+            $(".stopslideshowbutton", this.galleryConfig.galleryDom).unbind('click.gallery');
+
+            $(".dynamic", this.galleryConfig.imageDom).empty();
+            this.galleryConfig.galleryDom.hide();
         };
 
         resultClass.prototype.gotoNextImage = function () {
@@ -118,13 +134,14 @@
         };
 
         resultClass.prototype.startSlideshow = function () {
+            var tthis = this;
             if (this.slideshowIntervalId === undefined) {
                 var tthis = this;
                 this.slideshowIntervalId = window.setInterval(
                     function () {
-                        this.__slideshowEvent(tthis);
+                        tthis.__slideshowEvent(tthis);
                     },
-                    5000);
+                    3000);
             }
         };
 
@@ -150,6 +167,7 @@
         };
 
         resultClass.prototype.__moveToImage = function (imagePosition) {
+            var tthis = this;
             this.currentImagePosition = imagePosition;
             this.currentImage = this.galleryData.images[imagePosition];
             if (this.currentImage === undefined) {
@@ -161,12 +179,20 @@
             // Shows the image
             if (this.imageDomNow !== undefined) {
                 this.imageDomFadeout = this.imageDomNow;
-                this.imageDomFadeout.fadeOut(); // TODO: Remove from Dom
+
+                var currentImage = this.imageDomFadeout;
+                this.imageDomFadeout.fadeOut(function () {
+                    currentImage.remove();
+                });
             }
 
             this.imageDomNow = $("<img />");
+            this.imageDomNow.attr('class', 'dynamic');
+            this.imageDomNow.css('position', 'absolute');
+            this.imageDomNow.css('width', this.imageSize.x);
+            this.imageDomNow.css('height', this.imageSize.y);
             this.imageDomNow.attr('src', this.__getUrlOfImage(this.currentImage));
-            this.galleryConfig.imageDom.append(this.imageDomNow);
+            this.galleryConfig.imageDom.prepend(this.imageDomNow);
             this.imageDomNow.hide();
             this.imageDomNow.fadeIn();
 
