@@ -1,5 +1,5 @@
-﻿define(['translation'],
-    function (translate) {
+﻿define([],
+    function () {
         var resultClass = function (galleryConfig) {
             // Checks, if galleryconfig contains all necessary functions
 
