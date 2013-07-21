@@ -58,13 +58,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="js\dejs.gallery.js" />
     <Content Include="js\dejs.table.js" />
+    <Content Include="js\init\init.gallery.js" />
     <Content Include="js\init\init.table.js" />
     <Content Include="js\lib\jquery.js" />
     <Content Include="js\lib\require.js" />
+    <Content Include="tests\dejs.gallery.html" />
     <Content Include="tests\dejs.table.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="tests\img\blume1gross.jpeg" />
+    <Content Include="tests\img\blume2gross.jpeg" />
+    <Content Include="tests\img\blume3gross.jpeg" />
+    <Content Include="tests\img\blume4gross.jpeg" />
+    <Content Include="tests\img\blume5gross.jpeg" />
+    <Content Include="tests\img\blume6gross.jpeg" />
     <Content Include="web.config" />
     <Content Include="js\dejs.number.js" />
     <Content Include="js\dejs.string.js" />
