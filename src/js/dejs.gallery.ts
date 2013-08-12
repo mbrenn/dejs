@@ -20,7 +20,7 @@ export class GalleryData
 	images : ImageData[];
 }
 
-class ImageSize
+export class ImageSize
 {
 	x : number;
 	y : number;

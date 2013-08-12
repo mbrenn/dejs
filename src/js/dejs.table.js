@@ -53,4 +53,3 @@ define(["require", "exports"], function(require, exports) {
     })();
     exports.Table = Table;    
 })
-

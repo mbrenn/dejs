@@ -58,8 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="js\dejs.gallery.js" />
-    <Content Include="js\dejs.table.js" />
     <Content Include="js\init\init.gallery.js" />
     <Content Include="js\init\init.table.js" />
     <Content Include="js\lib\jquery.js" />
@@ -74,15 +72,22 @@
     <Content Include="tests\img\blume4gross.jpeg" />
     <Content Include="tests\img\blume5gross.jpeg" />
     <Content Include="tests\img\blume6gross.jpeg" />
-    <Content Include="web.config" />
-    <Content Include="js\dejs.number.js" />
-    <Content Include="js\dejs.string.js" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.gallery.ts" />
+    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.number.ts" />
+    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.string.ts" />
+    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.table.ts" />
+    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\lib\jquery.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -109,11 +114,16 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="TypeScriptCompile" BeforeTargets="CoreCompile">
+    <Message Text="Compiling TypeScript files" />
+    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ') --module amd" />
+  </Target>
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>

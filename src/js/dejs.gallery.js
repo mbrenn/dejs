@@ -17,7 +17,8 @@ define(["require", "exports"], function(require, exports) {
     var ImageSize = (function () {
         function ImageSize() { }
         return ImageSize;
-    })();    
+    })();
+    exports.ImageSize = ImageSize;    
     var Gallery = (function () {
         function Gallery(galleryConfig) {
             this.currentImageId = "";
@@ -202,4 +203,3 @@ define(["require", "exports"], function(require, exports) {
     })();
     exports.Gallery = Gallery;    
 })
-
