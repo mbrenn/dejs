@@ -1,3 +1,2 @@
-﻿export class Number
-{
+﻿export class Number {
 }

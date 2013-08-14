@@ -1,7 +1,8 @@
-define(["require", "exports"], function(require, exports) {
+﻿define(["require", "exports"], function(require, exports) {
     var Number = (function () {
-        function Number() { }
+        function Number() {
+        }
         return Number;
     })();
-    exports.Number = Number;    
-})
+    exports.Number = Number;
+});

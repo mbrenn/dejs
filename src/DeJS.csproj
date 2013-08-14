@@ -83,11 +83,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.gallery.ts" />
-    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.number.ts" />
-    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.string.ts" />
-    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\dejs.table.ts" />
-    <TypeScriptCompile Include="D:\Projekte\Aktuell\Dejs\src\\js\lib\jquery.d.ts" />
+    <TypeScriptCompile Include="js\dejs.gallery.ts" />
+    <TypeScriptCompile Include="js\dejs.number.ts" />
+    <TypeScriptCompile Include="js\dejs.string.ts" />
+    <TypeScriptCompile Include="js\dejs.table.ts" />
+    <TypeScriptCompile Include="js\lib\jquery.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -116,7 +116,7 @@
   </ProjectExtensions>
   <Target Name="TypeScriptCompile" BeforeTargets="CoreCompile">
     <Message Text="Compiling TypeScript files" />
-    <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\tsc&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ') --module amd" />
+    <Exec Command="&quot;%AppData%\npm\tsc.cmd&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ') --module amd" />
   </Target>
   <Target Name="BeforeBuild">
   </Target>

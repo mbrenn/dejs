@@ -26,67 +26,64 @@ export class ImageSize
 	y : number;
 }
 
-export class Gallery
-{
-	// Checks, if galleryconfig contains all necessary functions
-	currentImageId = "";
-	galleryConfig : GalleryConfig;
-	galleryData : GalleryData;
-	currentImage : ImageData;
-	currentImagePosition : number;
+export class Gallery {
+    // Checks, if galleryconfig contains all necessary functions
+    currentImageId = "";
+    galleryConfig: GalleryConfig;
+    galleryData: GalleryData;
+    currentImage: ImageData;
+    currentImagePosition: number;
 
-	// Stores the imageDom, which contains the currently visible building
-	imageDomNow : JQuery;
+    // Stores the imageDom, which contains the currently visible building
+    imageDomNow: JQuery;
 
-	// Stores the imageDom, which is currently faded out. 
-	imageDomFadeout : JQuery;
+    // Stores the imageDom, which is currently faded out. 
+    imageDomFadeout: JQuery;
 
-	// Stores an array of imagedoms that will be used for preloading. 
-	// Key of the array will be the position as in galleryData.images. 
-	// Value the Image instance
-	imagesPreload : HTMLImageElement[];
-	
-	imageSize : ImageSize;
-	
-	slideshowIntervalId : number;
-	
-	constructor(galleryConfig : GalleryConfig)
-	{
-		this.imagesPreload = new HTMLImageElement[]();
-		this.galleryConfig = galleryConfig;
-		
-		if (galleryConfig === undefined) {
-	    	throw "galleryConfig not defined";
-		}
+    // Stores an array of imagedoms that will be used for preloading. 
+    // Key of the array will be the position as in galleryData.images. 
+    // Value the Image instance
+    imagesPreload: HTMLImageElement[];
 
-		if (galleryConfig.galleryDom === undefined) {
-			throw "galleryConfig.galleryDom === undefined";
-		}
+    imageSize: ImageSize;
 
-		if (galleryConfig.imageDom === undefined) {
-			galleryConfig.imageDom = $(".galleryimage", galleryConfig.galleryDom);
-		}
+    slideshowIntervalId: number;
 
-		if (galleryConfig.getImageUrl === undefined) {
-			throw "galleryConfig.getImageUrl === undefined";
-		}
+    constructor(galleryConfig: GalleryConfig) {
+        this.imagesPreload = new Array < HTMLImageElement > ();
+        this.galleryConfig = galleryConfig;
 
-		if (galleryConfig.focusImage === undefined) {
-			galleryConfig.focusImage = function () { /*Dummy*/ };
-		}
+        if (galleryConfig === undefined) {
+            throw "galleryConfig not defined";
+        }
 
-		if (galleryConfig.getImageSize === undefined) {
-			throw "galleryConfig.getImageSize === undefined";
-		}
+        if (galleryConfig.galleryDom === undefined) {
+            throw "galleryConfig.galleryDom === undefined";
+        }
 
-		if (galleryConfig.cacheSize === undefined) {
-			galleryConfig.cacheSize = 10;
-		}
-	}
-	
-	show(galleryData : GalleryData, imageId: string)
-	{
-		var tthis = this;
+        if (galleryConfig.imageDom === undefined) {
+            galleryConfig.imageDom = $(".galleryimage", galleryConfig.galleryDom);
+        }
+
+        if (galleryConfig.getImageUrl === undefined) {
+            throw "galleryConfig.getImageUrl === undefined";
+        }
+
+        if (galleryConfig.focusImage === undefined) {
+            galleryConfig.focusImage = function () { /*Dummy*/ };
+        }
+
+        if (galleryConfig.getImageSize === undefined) {
+            throw "galleryConfig.getImageSize === undefined";
+        }
+
+        if (galleryConfig.cacheSize === undefined) {
+            galleryConfig.cacheSize = 10;
+        }
+    }
+
+    show(galleryData: GalleryData, imageId: string) {
+        var tthis = this;
         this.galleryData = galleryData;
         // Check images
         var images = this.galleryData.images;
@@ -129,10 +126,9 @@ export class Gallery
         }
 
         this.galleryConfig.galleryDom.show();
-	}
-	
-	close()
-	{
+    }
+
+    close() {
         this.stopSlideshow();
 
         $(".prevbutton", this.galleryConfig.galleryDom).unbind('click.gallery');
@@ -143,38 +139,34 @@ export class Gallery
 
         $(".dynamic", this.galleryConfig.imageDom).empty();
         this.galleryConfig.galleryDom.hide();
-	}
-	
-	gotoNextImage()
-	{
+    }
+
+    gotoNextImage() {
         var nextPosition = this.currentImagePosition + 1;
         if (nextPosition >= this.galleryData.images.length) {
             nextPosition = 0;
         }
 
         this.__moveToImage(nextPosition);
-	}
-	
-	gotoPreviousImage()
-	{
+    }
+
+    gotoPreviousImage() {
         var nextPosition = this.currentImagePosition - 1;
         if (nextPosition < 0) {
             nextPosition = this.galleryData.images.length - 1;
         }
 
         this.__moveToImage(nextPosition);
-	}
-	
-	focusImage(imageId: string)
-	{
+    }
+
+    focusImage(imageId: string) {
         var position = this.__getPositionOfImage(imageId);
         if (position != -1) {
             this.__moveToImage(position);
         }
-	}
-	
-	startSlideshow()
-	{
+    }
+
+    startSlideshow() {
         var tthis = this;
         if (this.slideshowIntervalId === undefined) {
             var tthis = this;
@@ -184,22 +176,19 @@ export class Gallery
                 },
                 3000);
         }
-	}
-	
-	stopSlideshow()
-	{
+    }
+
+    stopSlideshow() {
         if (this.slideshowIntervalId !== undefined) {
             this.slideshowIntervalId = undefined;
         }
-	}
-	
-	getActiveImage()
-	{
+    }
+
+    getActiveImage() {
         return this.currentImage;
-	}
-	
-	__getPositionOfImage(imageId: string)
-	{
+    }
+
+    __getPositionOfImage(imageId: string) {
         for (var n = 0; n < this.galleryData.images.length; n++) {
             var image = this.galleryData.images[n];
             if (image.id === imageId) {
@@ -208,10 +197,9 @@ export class Gallery
         }
 
         return -1;
-	}
-	
-	__moveToImage(imagePosition: number)
-	{
+    }
+
+    __moveToImage(imagePosition: number) {
         var tthis = this;
         this.currentImagePosition = imagePosition;
         this.currentImage = this.galleryData.images[imagePosition];
@@ -246,24 +234,21 @@ export class Gallery
 
         // Calls
         this.galleryConfig.focusImage(this.galleryData, this.currentImage);
-	}
-	
-	__getUrlOfImage(image : ImageData)
-	{
+    }
+
+    __getUrlOfImage(image: ImageData) {
         if (image === undefined) {
             throw "Invalid";
         }
 
         return this.galleryConfig.getImageUrl(image, this.imageSize.x, this.imageSize.y);
-	}
-	
-	__slideshowEvent(tthis: Gallery)
-	{
-		tthis.gotoNextImage();
-	}
-	
-	__fillCache(imagePosition: number)
-	{
+    }
+
+    __slideshowEvent(tthis: Gallery) {
+        tthis.gotoNextImage();
+    }
+
+    __fillCache(imagePosition: number) {
         var after = Math.max(1, Math.round(this.galleryConfig.cacheSize * 2 / 3));
         var before = Math.max(1, this.galleryConfig.cacheSize - after - 1);
         var first = imagePosition - before;
@@ -272,7 +257,7 @@ export class Gallery
         if (first < 0) {
             first = 0;
         }
-        
+
         if (last >= this.galleryData.images.length) {
             last = this.galleryData.images.length - 1;
         }
@@ -285,5 +270,5 @@ export class Gallery
                 this.imagesPreload[n] = image;
             }
         }
-	}
+    }
 }
