@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <TypeScriptCompile Include="js\dejs.ajax.ts" />
     <Content Include="js\init\init.gallery.js" />
     <Content Include="js\init\init.table.js" />
     <Content Include="js\lib\jquery.js" />
@@ -87,7 +88,7 @@
     <TypeScriptCompile Include="js\dejs.number.ts" />
     <TypeScriptCompile Include="js\dejs.string.ts" />
     <TypeScriptCompile Include="js\dejs.table.ts" />
-    <TypeScriptCompile Include="js\lib\jquery.d.ts" />
+    <TypeScriptCompile Include="js\jquery.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -116,7 +117,7 @@
   </ProjectExtensions>
   <Target Name="TypeScriptCompile" BeforeTargets="CoreCompile">
     <Message Text="Compiling TypeScript files" />
-    <Exec Command="&quot;%AppData%\npm\tsc.cmd&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ') --module amd" />
+    <Exec Command="&quot;%AppData%\npm\tsc.cmd&quot; @(TypeScriptCompile ->'&quot;%(fullpath)&quot;', ' ') --module amd --declaration" />
   </Target>
   <Target Name="BeforeBuild">
   </Target>
@@ -124,6 +125,6 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

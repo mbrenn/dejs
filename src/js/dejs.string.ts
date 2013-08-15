@@ -1,4 +1,4 @@
-/// <reference path="lib/jquery.d.ts" />
+/// <reference path="jquery.d.ts" />
 
 export class String {
     encodeHtml(text: string) {

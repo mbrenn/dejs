@@ -1,4 +1,4 @@
-/// <reference path="lib/jquery.d.ts" />
+/// <reference path="jquery.d.ts" />
 define(["require", "exports"], function(require, exports) {
     var GalleryConfig = (function () {
         function GalleryConfig() {
