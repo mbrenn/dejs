@@ -35,14 +35,16 @@ export class Table {
         return this.__currentRow;
     }
 
-    addColumn(content: string, options) {
+    addColumn(content: string);
+    addColumn(content: string, options?: CellOptions) {
         var currentColumn = this.__createColumn(options);
         currentColumn.text(content);
 
         return currentColumn;
     }
 
-    addColumnHtml(content: string, options) {
+    addColumnHtml(content: string);
+    addColumnHtml(content: string, options?: CellOptions) {
         var currentColumn = this.__createColumn(options);
         currentColumn.html(content);
 
