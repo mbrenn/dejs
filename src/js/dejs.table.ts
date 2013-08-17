@@ -5,16 +5,30 @@ export class CellOptions
 	asHeader : boolean;
 }
 
+export class TableOptions {
+    cssClass: string
+}
+
 export class Table {
     __domElement: JQuery;
     __currentTable: JQuery;
     __currentRow: JQuery;
     __isHeaderRow: boolean;
 
-    constructor(domElement: JQuery) {
+    constructor(domElement: JQuery, options?: TableOptions) {
         this.__domElement = domElement;
         this.__currentTable = $("<table></table>");
         this.__domElement.append(this.__currentTable);
+
+        if (options !== undefined) {
+            if (options.cssClass !== undefined && options.cssClass !== null) {
+                this.__currentTable.addClass(options.cssClass);
+            }
+        }
+    }
+
+    getTableDom(): JQuery {
+        return this.__currentTable;
     }
 
     addRow() {
