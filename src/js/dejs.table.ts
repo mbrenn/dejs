@@ -65,6 +65,13 @@ export class Table {
         return currentColumn;
     }
 
+    addColumnJQuery(content: JQuery, options?: CellOptions) {
+        var currentColumn = this.__createColumn(options);
+        currentColumn.append(content);
+        
+        return currentColumn;
+    }
+
     __createColumn(options) {
         if (this.__currentRow === undefined) {
             throw ("Row has not been started");
