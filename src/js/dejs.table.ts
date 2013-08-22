@@ -49,30 +49,30 @@ export class Table {
         return this.__currentRow;
     }
 
-    addColumn(content: string);
-    addColumn(content: string, options?: CellOptions) {
+    addColumn(content: string): JQuery;
+    addColumn(content: string, options?: CellOptions): JQuery {
         var currentColumn = this.__createColumn(options);
         currentColumn.text(content);
 
         return currentColumn;
     }
 
-    addColumnHtml(content: string);
-    addColumnHtml(content: string, options?: CellOptions) {
+    addColumnHtml(content: string): JQuery;
+    addColumnHtml(content: string, options?: CellOptions): JQuery {
         var currentColumn = this.__createColumn(options);
         currentColumn.html(content);
 
         return currentColumn;
     }
 
-    addColumnJQuery(content: JQuery, options?: CellOptions) {
+    addColumnJQuery(content: JQuery, options?: CellOptions): JQuery {
         var currentColumn = this.__createColumn(options);
         currentColumn.append(content);
-        
+
         return currentColumn;
     }
 
-    __createColumn(options) {
+    __createColumn(options): JQuery {
         if (this.__currentRow === undefined) {
             throw ("Row has not been started");
         }
