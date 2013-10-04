@@ -31,7 +31,7 @@ export class Table {
         return this.__currentTable;
     }
 
-    addRow() {
+    addRow(): JQuery {
         this.__isHeaderRow = false;
 
         this.__currentRow = $("<tr></tr>");
@@ -40,11 +40,29 @@ export class Table {
         return this.__currentRow;
     }
 
-    addHeaderRow() {
+    addHeaderRow(): JQuery {
         this.__isHeaderRow = true;
 
         this.__currentRow = $("<tr></tr>");
         this.__currentTable.append(this.__currentRow);
+
+        return this.__currentRow;
+    }
+
+    insertRowAfter(lastRow: JQuery): JQuery{
+        this.__isHeaderRow = false;
+
+        this.__currentRow = $("<tr></tr>");
+        lastRow.after(this.__currentRow);
+
+        return this.__currentRow;
+    }
+
+    insertRowBefore(lastRow: JQuery): JQuery {
+        this.__isHeaderRow = false;
+
+        this.__currentRow = $("<tr></tr>");
+        lastRow.before(this.__currentRow);
 
         return this.__currentRow;
     }
