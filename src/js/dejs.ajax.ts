@@ -42,6 +42,15 @@ export function loadWebContent(data: any) {
         });
 }
 
+export interface PerformRequestSettings {
+    url?: string;
+    method?: string;
+    data?: any;
+    contentType?: string;
+    success?: (data: any) => void;
+    fail?: (data: any) => void;
+    prefix?: string;
+}
 /*
  * Performs a request with certain default actions
  * data: Data-structure
@@ -59,7 +68,7 @@ export function loadWebContent(data: any) {
  *              $("#" + prefix + "domnosuccess_" + errorcode) is the element being shown in case of nonsuccess
  *              $("#" + prefix + "button") is the button being used to activate and not activate
  */
-export function performRequest(data: any) {
+export function performRequest(data: PerformRequestSettings) {
     if (data === undefined) {
         data = {};
     }
@@ -145,6 +154,6 @@ export function performRequest(data: any) {
         });
 }
 
-export function showFormFailure(prefix: string, message: string) {
+export function showFormFailure(prefix: string, failFunction: (data: any) => void) {
     //alert(message);
 }

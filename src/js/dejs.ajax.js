@@ -136,7 +136,7 @@ define(["require", "exports"], function(require, exports) {
     }
     exports.performRequest = performRequest;
 
-    function showFormFailure(prefix, message) {
+    function showFormFailure(prefix, failFunction) {
         //alert(message);
     }
     exports.showFormFailure = showFormFailure;
