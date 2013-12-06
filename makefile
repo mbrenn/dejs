@@ -15,35 +15,22 @@ all: bin/js/dejs.ajax.js bin/js/dejs.gallery.js bin/js/dejs.string.js bin/js/dej
 	cp -r src/js/lib/* bin/js/lib/
 	cp -r src/tests/* bin/tests/
 
-bin/js/dejs.ajax.js: src/js/dejs.ajax.ts
-	tsc src/js/dejs.ajax.ts --module amd
+# Rule to transfer Typescript files to JavaScript files
+bin/js/%.js : src/js/%.ts
+	tsc $< --module amd
 	mkdir -p bin
 	mkdir -p bin/js
-	cp src/js/dejs.ajax.js bin/js
+	cp src/js/$(@F) bin/js
+
+bin/js/dejs.ajax.js: src/js/dejs.ajax.ts
 
 bin/js/dejs.gallery.js: src/js/dejs.gallery.ts
-	tsc src/js/dejs.gallery.ts --module amd
-	mkdir -p bin
-	mkdir -p bin/js
-	cp src/js/dejs.gallery.js bin/js
 
 bin/js/dejs.string.js: src/js/dejs.string.ts
-	tsc src/js/dejs.string.ts --module amd
-	mkdir -p bin
-	mkdir -p bin/js
-	cp src/js/dejs.string.js bin/js
 
 bin/js/dejs.table.js: src/js/dejs.table.ts
-	tsc src/js/dejs.table.ts --module amd
-	mkdir -p bin
-	mkdir -p bin/js
-	cp src/js/dejs.table.js bin/js
 
 bin/js/dejs.number.js: src/js/dejs.number.ts
-	tsc src/js/dejs.number.ts --module amd
-	mkdir -p bin
-	mkdir -p bin/js
-	cp src/js/dejs.number.js bin/js
 
 .PHONY: clean
 clean:
