@@ -30,7 +30,7 @@ export function reportError(serverResponse: string) {
  */
 export function loadWebContent(data: any) {
     $.ajax(data.url, undefined)
-        .success(function (responseData) {
+        .done(function (responseData) {
             data.domTarget.html(responseData);
 
             if (data.success !== undefined) {
@@ -119,7 +119,7 @@ export function performRequest(data: PerformRequestSettings) {
     $.ajax(
             data.url,
             ajaxSettings)
-        .success(function (resultData) {
+        .done(function (resultData) {
             if (resultData.success) {
                 // Ok, we have a successful request
                 domButton.removeAttr("disabled");
