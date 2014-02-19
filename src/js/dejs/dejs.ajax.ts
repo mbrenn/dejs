@@ -11,13 +11,18 @@ export class AjaxSettings {
 }
 
 export function reportError(serverResponse: string) {
-    var data = $.parseJSON(serverResponse);
+    try {
+        var data = $.parseJSON(serverResponse);
 
-    if (data !== undefined && data !== null && data["message"] !== undefined) {
-        $("#errorlog").text(data["message"]);
+        if (data !== undefined && data !== null && data["message"] !== undefined) {
+            $("#errorlog").text(data["message"]);
+        }
+        else {
+            $("#errorlog").text("Unknown Message: " + serverResponse);
+        }
     }
-    else {
-        $("#errorlog").text("Unknown Message: " + serverResponse);
+    catch (exc) {
+        alert(exc);
     }
 }
 
@@ -85,7 +90,8 @@ export function performRequest(data: PerformRequestSettings) {
     var domNosuccess = $("." + data.prefix + "domnosuccess");
     var domButton = $("." + data.prefix + "button");
 
-    var ajaxSettings = new AjaxSettings();
+    var ajaxSettings: JQueryAjaxSettings = {};
+    ajaxSettings.headers = { 'X-Requested-With': 1 };
 
     if (data.method !== undefined) {
         ajaxSettings.type = data.method;
